@@ -1,0 +1,1 @@
+.dhd/hbase/.xsession-stumpwm

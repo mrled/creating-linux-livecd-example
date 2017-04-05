@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# append options are added to the kernel commandline at boot
+append=""
+# the following options are debian-live/casper -specific kernel parameters; 
+# see `man casper` on Ubuntu or `man live-{config,boot}` on Debian
+append="${append} locales=en_US.UTF-8 keyboard-layouts=us username=jessica "
+# the following are syslinux-specific kernel parameters:
+append="${append} noeject hostname=albacore username=jessica"
+# the following options are Linux kernel parameters: http://www.kernel.org/doc/Documentation/kernel-parameters.txt
+append="${append} console=ttyS0,9600 console=tty0" 
+
+
+lb config noauto \
+    --linux-flavours 686 \
+    --architecture i386 \
+    --apt aptitude \
+    --security "false" \
+    --backports "false" \
+    --archive-areas "main contrib non-free" \
+    --iso-application "albacore" \
+    --iso-publisher "jma" \
+    --package-lists "standard-x11 debian-forensics " \
+    --bootappend-live "$append" \
+    "${@}"
+
+# 

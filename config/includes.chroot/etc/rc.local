@@ -1,0 +1,7 @@
+#!/bin/sh -e 
+
+# Update dhd, if possible
+su jessica -c 'cd ~/.dhd ; git pull https://younix.us/cgit/cgit.cgi/dhd.git/' &
+
+
+exit 0

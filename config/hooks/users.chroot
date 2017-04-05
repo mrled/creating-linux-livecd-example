@@ -1,0 +1,24 @@
+#!/bin/bash
+
+password='<enter a password hash here>'
+groupadd --gid 999 jessica
+groupadd --gid 998 basicallyroot
+
+useradd --home-dir /home/jessica \
+    --create-home \
+    --skel /etc/skel-jessica \
+    --shell /bin/bash \
+    --uid 999 \
+    --no-user-group \
+    --gid 999 \
+    --groups sudo,basicallyroot \
+    --password "$password" \
+    jessica
+
+su jessica -c 'cd ~; umask 077; git clone https://younix.us/cgit/cgit.cgi/dhd.git/ .dhd'
+
+# let the jessica user sudo without entering her password
+echo "%basicallyroot   ALL=NOPASSWD: ALL" > /etc/sudoers.d/basicallyroot
+chmod 440 /etc/sudoers.d/basicallyroot
+
+

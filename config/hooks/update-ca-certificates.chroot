@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# if I don't run this with -f, it won't work at all...
+# (necessary because I added my CA to the bundle)
+update-ca-certificates -f
